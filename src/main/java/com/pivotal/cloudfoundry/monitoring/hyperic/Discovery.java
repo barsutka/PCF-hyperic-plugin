@@ -1,4 +1,3 @@
-
 package com.pivotal.cloudfoundry.monitoring.hyperic;
 
 import java.util.ArrayList;
@@ -82,15 +81,16 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
     	
     	// HERE USE JMX CONN TO PULL JMX SERVICES AVAILABLE (DEA, HEALTH MANAGER, HA PROXY, ROUTER, ...) AND SHOW THEM
     	
-    	
+    	log.info("A");
     	List<ServiceResource> services = new ArrayList<ServiceResource>();
+    	log.info("B");
     	
     	Iterator<CFService> cfServices = client.getServices().iterator();
     	while (cfServices.hasNext()){    		
     		CFService cfService = cfServices.next();
           
     		ServiceResource service = createServiceResource(cfService.getClass().getSimpleName());
-            service.setName(cfService.getClass().getSimpleName() + " " + cfService.getIndex());
+            service.setName(cfService.getClass().getSimpleName() + " job=" + cfService.getIndex() + " ip=" + cfService.getIp());
             ConfigResponse productConfig = new ConfigResponse();
             productConfig.setValue("service.ID", cfService.getIndex());
             productConfig.setValue("service.IP", cfService.getIp());

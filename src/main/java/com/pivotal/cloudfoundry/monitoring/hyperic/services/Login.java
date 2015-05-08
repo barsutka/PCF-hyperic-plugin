@@ -1,7 +1,7 @@
 package com.pivotal.cloudfoundry.monitoring.hyperic.services;
 
 
-public class Loggregator_trafficcontroller implements CFService{
+public class Login implements CFService{
 
 	private int index;
 	private String ip;
@@ -27,6 +27,5 @@ public class Loggregator_trafficcontroller implements CFService{
 	public void setPart(String partition) {
 		this.partition = partition;
 	}
-	
 	
 }

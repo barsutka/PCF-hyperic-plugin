@@ -5,6 +5,7 @@ public class Uaadb implements CFService{
 
 	private int index;
 	private String ip;
+	private String partition;
 	
 	public int getIndex() {
 		return index;
@@ -19,6 +20,13 @@ public class Uaadb implements CFService{
 		this.ip = job;
 	}
 	
+	public String getPart() {
+		return partition;
+	}
+	
+	public void setPart(String partition) {
+		this.partition = partition;
+	}
 	
 	
 }

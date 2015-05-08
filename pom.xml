@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<groupId>com.pivotal</groupId>
-	<artifactId>hyperic-plugin</artifactId>
+	<artifactId>PCF-hyperic-plugin</artifactId>
 	<name>PCF-plugin</name>
 	<packaging>jar</packaging>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>	
