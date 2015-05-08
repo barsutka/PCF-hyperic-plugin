@@ -54,7 +54,7 @@
             <config>
                 <option name="service.ID" description="BOSH Job Instance ID" default="0" optional="false"/>
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
-                <option name="service.Part" description="Service Avail Zone/Partion" default="0" optional="false"/>
+                <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
             <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=DEA,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
 
@@ -89,42 +89,45 @@
             <config>
                 <option name="service.ID" description="BOSH Job Instance ID" default="0" optional="false"/>
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
-                <option name="service.Part" description="Service Avail Zone/Partion" default="0" optional="false"/>
+                <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
             <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=MetronAgent,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
-			<metric name="Healthy" indicator="true" category="AVAILABILITY" alias="healthy" />
-            
+			<metric name="Message Aggregator Counter Recvd" indicator="true" category="THROUGHPUT" alias="MetronAgent.MessageAggregator.counterEventReceived" />  
+			<metric name="Recieved Byte Count" indicator="true" category="THROUGHPUT" alias="MetronAgent.legacyAgentListener.receivedByteCount" /> 
+			<metric name="Current Buffer Count" indicator="true" category="THROUGHPUT" alias="MetronAgent.legacyAgentListener.currentBufferCoun" />
+			          
         </service>
-        
+
         <service name="DopplerServer">
             <config>
                 <option name="service.ID" description="BOSH Job Instance ID" default="0" optional="false"/>
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
-                <option name="service.Part" description="Service Avail Zone/Partion" default="0" optional="false"/>
+                <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
             <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=DopplerServer,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
-			<metric name="Healthy" indicator="true" category="AVAILABILITY" alias="healthy" />
-			<metric name="Messages Recvd" indicator="true" category="UTILIZATION" alias="DopplerServer.httpServer.receivedMessages" />            
+			<metric name="Message Counter Recvd" indicator="true" category="THROUGHPUT" alias="DDopplerServer.dropsondeListener.receivedMessageCount" />  
+			<metric name="Recieved Byte Count" indicator="true" category="THROUGHPUT" alias="DopplerServer.dropsondeListener.receivedByteCount" /> 
+			<metric name="Current Buffer Count" indicator="true" category="THROUGHPUT" alias="DopplerServer.dropsondeListener.currentBufferCount" />
+			          
         </service>
         
         <service name="Login">
-            <config>
+           <config>
                 <option name="service.ID" description="BOSH Job Instance ID" default="0" optional="false"/>
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
-                <option name="service.Part" description="Service Avail Zone/Partion" default="0" optional="false"/>
+                <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
             <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=login,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
 
             <metric name="Availability" indicator="true" />
-            
-			<metric name="Healthy" indicator="true" category="AVAILABILITY" alias="healthy" />         
-        </service>
+
+        </service> -->
             
         <service name="HM9000">
             <config>

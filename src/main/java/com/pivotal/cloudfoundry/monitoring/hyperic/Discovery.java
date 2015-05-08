@@ -81,9 +81,9 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
     	
     	// HERE USE JMX CONN TO PULL JMX SERVICES AVAILABLE (DEA, HEALTH MANAGER, HA PROXY, ROUTER, ...) AND SHOW THEM
     	
-    	log.info("A");
+   
     	List<ServiceResource> services = new ArrayList<ServiceResource>();
-    	log.info("B");
+  
     	
     	Iterator<CFService> cfServices = client.getServices().iterator();
     	while (cfServices.hasNext()){    		
