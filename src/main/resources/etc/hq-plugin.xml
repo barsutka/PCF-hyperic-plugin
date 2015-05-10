@@ -20,9 +20,8 @@
             <config>
                 <option name="service.ID" description="BOSH Job Instance ID" default="0" optional="false"/>
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
-                <option name="service.Part" description="Service Avail Zone/Partion" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=CloudController,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=CloudController,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -56,7 +55,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=DEA,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=DEA,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -91,7 +90,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=MetronAgent,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=MetronAgent,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -107,7 +106,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=DopplerServer,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=DopplerServer,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -123,7 +122,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=login,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=login,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
 
@@ -135,7 +134,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partion" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=HM9000,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=HM9000,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -182,7 +181,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=Router,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=Router,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -201,7 +200,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=LoggregatorDeaAgent,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=LoggregatorDeaAgent,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -214,7 +213,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=LoggregatorServer,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=LoggregatorServer,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -227,7 +226,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=LoggregatorTrafficcontroller,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=LoggregatorTrafficcontroller,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -241,7 +240,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=collector,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=collector,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -254,7 +253,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=saml_login,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=saml_login,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             
@@ -266,7 +265,7 @@
                 <option name="service.IP" description="BOSH Job IP Address" default="0" optional="false"/>
                 <option name="service.Part" description="Service Avail Zone/Partition" default="0" optional="false"/>
             </config>
-            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=uaa,index=%service.ID%,ip=%service.IP%,partition=%service.Part%:${alias}" />
+            <property name="template" value="org.cloudfoundry:deployment=untitled_dev,job=uaa,index=%service.ID%,ip=%service.IP%:${alias}" />
 
             <metric name="Availability" indicator="true" />
             

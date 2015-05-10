@@ -47,9 +47,9 @@ public class Measurement extends MeasurementPlugin {
         if (!metric.toString().startsWith("org.cloudfoundry")) return new MetricValue(1d);
         else{
 	        try{
-	        	log.debug(">>>>WILL GET VALUE VALUE OF METRIC: " + metric);
+	        	log.info(">>>>WILL GET VALUE VALUE OF METRIC: " + metric);
 	        	double value = JMXClient.getInstance().getPropertyValue(metric.toString());
-	        	log.debug(">>>>VALUE IS: " + value);
+	        	log.info(">>>>VALUE IS: " + value);
 	        	
 	        	metricValue = new MetricValue(value); 
 	        }
