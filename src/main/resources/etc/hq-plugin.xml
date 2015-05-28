@@ -190,7 +190,7 @@
 			<metric name="Routing: Bad Requests" indicator="true" category="THROUGHPUT" alias="router.bad_requests" />
 			<metric name="Routing: Total Requests" indicator="true" category="THROUGHPUT" alias="router.total_requests" />
 			<metric name="Routing: Total Routes" indicator="true" category="THROUGHPUT" alias="router.total_routes" />
-
+			<metric name="Routing: Requests per Second" indicator="true" category="THROUGHPUT" alias="router.requests_per_sec" />
 			            
         </service>
                 
