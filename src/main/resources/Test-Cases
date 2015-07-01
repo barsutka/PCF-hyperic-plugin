@@ -1,0 +1,13 @@
+## Test Lifecycle of PCF Plugin
+java -jar C:\Hyperic-Agent\hyperic-hqee-agent-5.8.4\bundles\agent-x86-64-win-5.8.4\pdk\lib\hq-pdk-5.8.4
+.jar -p PCF -m lifecycle -DPlugins.include=PCF
+
+## Test Discovery of PCF Plugin
+java -jar C:\Hyperic-Agent\hyperic-hqee-agent-5.8.4\bundles\agent-x86-64-win-5.8.4\pdk\lib\hq-pdk-5.8.4
+.jar -p PCF -m discover -DPlugins.include=PCF -a properties -Dlog=debug -DJMX_URL=service:jmx:rmi:///jndi/rmi://192.168.
+5.67:44444/jmxrmi -DUsername=admin -DPassword=pivotal
+
+## Test Metric collection of PCF Plugin
+java -jar C:\Hyperic-Agent\hyperic-hqee-agent-5.8.4\bundles\agent-x86-64-win-5.8.4\pdk\lib\hq-pdk-5.8.4
+.jar -p PCF -m metric plugin-properties\pivotal-cloudfoundry-1.4.x-cloudcontroller\CloudController_job=0_ip=192.168.5.27
+.properties -Dmetric-indictator=true -Dlog=debug -o C:\output -f output.txt

@@ -6,7 +6,7 @@
         <plugin type="measurement" class="com.pivotal.cloudfoundry.monitoring.hyperic.Measurement"/>
 
         <config>
-           <option name="JMX URL" description="JMX URL of Ops Metrics " default="service:jmx:rmi:///jndi/rmi://192.168.8.19:44444/jmxrmi" optional="false" />
+           <option name="JMX_URL" description="JMX URL of Ops Metrics " default="service:jmx:rmi:///jndi/rmi://192.168.8.19:44444/jmxrmi" optional="false" />
             <option name="Username" description="JMX Username " default="jmxadmin" optional="false"/>
 			<option name="Password" description="JMX Password " default="enter-password" optional="false"/>     
 		</config>

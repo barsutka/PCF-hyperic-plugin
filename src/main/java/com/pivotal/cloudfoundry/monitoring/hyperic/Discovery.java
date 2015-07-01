@@ -15,11 +15,21 @@ import org.hyperic.util.config.ConfigResponse;
 
 import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
 
+/**
+ * 
+ * @version 1.4.5
+ */
 
 public class Discovery extends ServerDetector implements AutoServerDetector {
 
-    private static Log log = LogFactory.getLog(Discovery.class);
+    /**
+     * Logging for this class
+     */
+	private static Log log = LogFactory.getLog(Discovery.class);
 
+	/**
+	 * 
+	 */
     public List getServerResources(ConfigResponse platformConfig) throws PluginException {
         
        	
@@ -39,29 +49,22 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
         return servers;
     }
 
+    /**
+     * 
+     */
     @Override
     protected List discoverServices(ConfigResponse serverConfig) throws PluginException {
         
     	log.info("[discoverServices] serverConfig=" + serverConfig);
         
-    	String jmxURL = serverConfig.getValue("JMX URL");
+    	String jmxURL = serverConfig.getValue("JMX_URL");
     	String username = serverConfig.getValue("Username");
     	String password = serverConfig.getValue("Password");
     	
-    	log.info("JMX URL=" + jmxURL);
-    	log.info("username=" + username);
-    	log.info("password=" + password);
-        
-    	//jmxURL="service:jmx:rmi:///jndi/rmi://10.103.44.105:44444/jmxrmi";
-    	//username="admin";
-    	//password="password";
-    	/*
-    	if (jmxURL==null || username==null || password==null){
-    		log.warn("JMX conn parameters are null");
-    		serverConfig.setValue("Availability", false);
-			return new ArrayList();
-    	}*/
-    	
+    	log.debug("JMX URL=" + jmxURL);
+    	log.debug("username=" + username);
+    	log.debug("password=" + password);
+
     	JMXClient client = JMXClient.getInstance();
     	try {
 			client.connect(jmxURL, username, password);
