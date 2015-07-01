@@ -16,8 +16,11 @@ import org.hyperic.util.config.ConfigResponse;
 import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
 
 /**
+ * This class is called during auto-discovery in Hyperic and is an extension
+ * of the Hyperic framework. The PCF plugin is responsible for creating its 
+ * own server and service resources to be displayed in the Hyperic UI.
  * 
- * @version 1.4.5
+ * @version 1.4.x
  */
 
 public class Discovery extends ServerDetector implements AutoServerDetector {
@@ -28,7 +31,9 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
 	private static Log log = LogFactory.getLog(Discovery.class);
 
 	/**
-	 * 
+	 * Creates the list of Server Resources for Pivotal Cloud Foundry plugin.
+	 * Since all PCF components are treated as services and not servers,
+	 * this method only creates 1 server.
 	 */
     public List getServerResources(ConfigResponse platformConfig) throws PluginException {
         
@@ -50,7 +55,9 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
     }
 
     /**
-     * 
+     * Called during the auto-discovery phase, this method gathers all the available
+     * MBeans using the {@link JMXClient#getServices()} method. The retruned list is then
+     * converted into Hyperic Service Resources.
      */
     @Override
     protected List discoverServices(ConfigResponse serverConfig) throws PluginException {
@@ -78,16 +85,11 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
 
 			serverConfig.setValue("Availability", false);
 			return new ArrayList();
-		}
-    	
-    	
-    	
-    	// HERE USE JMX CONN TO PULL JMX SERVICES AVAILABLE (DEA, HEALTH MANAGER, HA PROXY, ROUTER, ...) AND SHOW THEM
-    	
+		}	
    
     	List<ServiceResource> services = new ArrayList<ServiceResource>();
   
-    	
+    	// Convert the MBeans list to Hyperic Service Resources.
     	Iterator<CFService> cfServices = client.getServices().iterator();
     	while (cfServices.hasNext()){    		
     		CFService cfService = cfServices.next();

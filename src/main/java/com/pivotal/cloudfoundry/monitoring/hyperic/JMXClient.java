@@ -27,7 +27,8 @@ import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
 
 /**
  * This class represents a JMXClient connection to the Pivotal Ops Metric
- * tile.
+ * tile. This class is used by both the Discovery class and the Measurement
+ * class to interact with the JMX endpoint and retrieve information.
  *  
  * @since 1.4.x
  *
@@ -35,7 +36,7 @@ import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
 public class JMXClient {
 
 	/**
-	 * 
+	 * The JMX endpoint connection.
 	 */
 	MBeanServerConnection conn;
 	
@@ -70,11 +71,14 @@ public class JMXClient {
     }
     
     /**
-     * Connects to a JMX endpoint using the JMX URL, Username and Password.
+     * Connects to a JMX endpoint using the JMX URL, User name and Password. 
+     * These values are part of the Hyperic plugin configuration defined in the 
+     * hq-plugin.xml file.
+     *  
      * @param jmxUrl - JMX endpoint
      * @param username - user for the JMX endpoint
      * @param password - password for the JMX endpoint
-     * @throws IOException
+     * @throws IOException - If the connection fails
      */
 	public void connect(String jmxUrl, String username, String password) throws IOException{
 			
@@ -106,9 +110,12 @@ public class JMXClient {
 	}
 	
 	/**
+	 * This method decomposes the template string defined in hq-plugin.xml for each
+	 * service defined and creates a query string.
 	 * 
-	 * @param queryString
-	 * @return
+	 * @param queryString - Defined in the hq-plugin.xml file as the template
+	 * @return value fom JMX endpoint for metric.
+	 * 
 	 * @throws AttributeNotFoundException
 	 * @throws InstanceNotFoundException
 	 * @throws MalformedObjectNameException
@@ -131,8 +138,11 @@ public class JMXClient {
 	}
 	
 	/**
+	 * Called during the auto-discovery phase, this method retrieves a list of MBeans
+	 * from Pivotal Cloud Foundry Ops Metrics and creates an internal set of CFService
+	 * objects to represent these MBeans.
 	 * 
-	 * @return
+	 * @return - List of Cloud Foundry Services
 	 */
 	public List<CFService> getServices(){
 		
@@ -170,70 +180,5 @@ public class JMXClient {
 			e.printStackTrace();
 			return null;
 		}
-		
-		
 	}
-	
-	/*
-	public List<DEA> getDeas(){
-		
-		List<DEA> deas = new ArrayList<DEA>();
-		
-    	try{
-    		Iterator<ObjectName> names = new TreeSet<ObjectName> (conn.queryNames(new ObjectName("org.cloudfoundry:deployment=untitled_dev,job=DEA,index=*,ip=*"), null)).iterator();
-    		while (names.hasNext()){
-    			ObjectName obj = names.next();
-    			DEA dea = new DEA();
-    			dea.setIndex(Integer.parseInt(obj.getKeyProperty("index")));
-    			dea.setIp(obj.getKeyProperty("ip"));
-    			deas.add(dea);
-    		}
-    		return deas;
-    	}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	*/
-	
-//	public static void main(String[] args){
-//		JMXClient client = new JMXClient();
-//		try {
-//			client.connect("service:jmx:rmi:///jndi/rmi://192.168.5.67:44444/jmxrmi","admin","pivotal");
-//			
-//			echo("\nMBeanServer default domain = " + client.conn.getDefaultDomain());
-//
-//            // Get MBean count
-//            //
-//            echo("\nMBean count = " + client.conn.getMBeanCount());
-//
-//            // Query MBean names
-//            //
-//            
-//            
-//            echo("\nQuery MBeanServer MBeans:");
-//            Set<ObjectName> names =
-//                //new TreeSet<ObjectName>(client.conn.queryNames(null, null));
-//            		//org.cloudfoundry:deployment=null,job=*,index=*,ip=null
-//            		
-//            	new TreeSet<ObjectName>(client.conn.queryNames(new ObjectName("org.cloudfoundry:deployment=untitled_dev,job=*,index=*,*"), null));	
-//            for (ObjectName name : names) {
-//                echo("\tObjectName = " + name);
-//            }				
-//            
-//            List<CFService> services = client.getServices();
-//            for (CFService svc : services) {
-//                echo("\tService = " + svc.getClass().getSimpleName()+ " " +svc.getIndex()+" : "+svc.getIp());
-//            }			        
-//            
-//            echo("Property value for org.cloudfoundry:deployment=untitled_dev,job=DEA,index=1,ip=10.103.44.23:available_disk_ratio[stack=lucid64]"+client.getPropertyValue("org.cloudfoundry:deployment=untitled_dev,job=DEA,index=1,ip=10.103.44.23:available_disk_ratio[stack=lucid64]"));            
-//			
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-	
 }

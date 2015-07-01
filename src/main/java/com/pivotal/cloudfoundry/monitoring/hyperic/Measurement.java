@@ -11,10 +11,23 @@ import org.hyperic.hq.product.MetricUnreachableException;
 import org.hyperic.hq.product.MetricValue;
 import org.hyperic.hq.product.PluginException;
 
+/**
+ * This class is called by the Hyperic framework whenever a metric needs to
+ * be collected. 
+ * 
+ * @since 1.4.X
+ *
+ */
 public class Measurement extends MeasurementPlugin {
-
+	/**
+	 * Logger
+	 */
     private static Log log = LogFactory.getLog(Measurement.class.getName());
     
+    /**
+     * This method retrieves the metric value for the received metric. Its queries
+     * the JMX endpoint to get the value of the metric.
+     */
     @Override
     public MetricValue getValue(Metric metric) throws PluginException, MetricNotFoundException, MetricUnreachableException {
         log.debug("[getValue]metric" + metric);
@@ -59,8 +72,5 @@ public class Measurement extends MeasurementPlugin {
 	        }
         }
         return metricValue;
-        
-        
-
     }
 }
