@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class JMXClientTest {
 	
-	private String jmxURL = "service:jmx:rmi:///jndi/rmi://192.168.5.67:44444/jmxrmi";
+	private String jmxURL = "service:jmx:rmi:///jndi/rmi://192.168.8.19:44444/jmxrmi";
 	private String user = "admin";
 	private String password = "pivotal";
 	private JMXClient client = null;
@@ -39,7 +39,7 @@ public class JMXClientTest {
 //			fail("Exception throw connecting to JMX endpoint. Validate endpoint is correct");
 //		}
 //	}
-//
+
 //	@Test
 //	public void testIsConnected() {
 //		try
