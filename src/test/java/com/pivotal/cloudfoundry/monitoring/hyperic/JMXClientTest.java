@@ -11,9 +11,9 @@ import org.junit.Test;
 
 public class JMXClientTest {
 	
-	private String jmxURL = "service:jmx:rmi:///jndi/rmi://192.168.8.19:44444/jmxrmi";
-	private String user = "admin";
-	private String password = "pivotal";
+	private String jmxURL = "service:jmx:rmi:///jndi/rmi://192.168.8.95:44444/jmxrmi";
+	private String user = "jmxadmin";
+	private String password = "jmxadmin";
 	private JMXClient client = null;
 
 	@Before
@@ -28,48 +28,48 @@ public class JMXClientTest {
 		assertNotNull(getClass());
 	}
 
-//	@Test
-//	public void testConnect() {
-//		try
-//		{
-//			client.connect(this.jmxURL, this.user, this.password);
-//		}
-//		catch (Exception ex)
-//		{
-//			fail("Exception throw connecting to JMX endpoint. Validate endpoint is correct");
-//		}
-//	}
+	@Test
+	public void testConnect() {
+		try
+		{
+			client.connect(this.jmxURL, this.user, this.password);
+		}
+		catch (Exception ex)
+		{
+			fail("Exception throw connecting to JMX endpoint. Validate endpoint is correct");
+		}
+	}
 
-//	@Test
-//	public void testIsConnected() {
-//		try
-//		{
-//			client.connect(this.jmxURL, this.user, this.password);
-//		}
-//		catch (Exception ex)
-//		{
-//			fail("Exception throw connecting to JMX endpoint. Validate endpoint is correct");
-//		}
-//		assertTrue(client.isConnected());
-//	}
-//
-//	@Test
-//	public void testGetPropertyValue() {
-//		// client.getPropertyValue("test:test")
-//		//assertTrue(services.size() > 0);
-//	}
-//
-//	@Test
-//	public void testGetServices() {
-//		try{
-//			client.connect(this.jmxURL, this.user, this.password);
-//		}
-//		catch (Exception e)
-//		{
-//			fail("unable to connect to JMX endpoint");
-//		}
-//		List services = client.getServices();
-//		assertTrue(services.size() > 0);
-//	}
+	@Test
+	public void testIsConnected() {
+		try
+		{
+			client.connect(this.jmxURL, this.user, this.password);
+		}
+		catch (Exception ex)
+		{
+			fail("Exception throw connecting to JMX endpoint. Validate endpoint is correct");
+		}
+		assertTrue(client.isConnected());
+	}
+
+	@Test
+	public void testGetPropertyValue() {
+		// client.getPropertyValue("test:test")
+		//assertTrue(services.size() > 0);
+	}
+
+	@Test
+	public void testGetServices() {
+		try{
+			client.connect(this.jmxURL, this.user, this.password);
+		}
+		catch (Exception e)
+		{
+			fail("unable to connect to JMX endpoint");
+		}
+		List services = client.getServices();
+		assertTrue(services.size() > 0);
+	}
 
 }
