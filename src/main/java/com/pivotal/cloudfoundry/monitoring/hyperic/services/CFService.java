@@ -8,7 +8,4 @@ public interface CFService {
 	public String getIp();
 	public void setIp(String ip);
 	
-	public String getPart();
-	public void setPart(String partition);
-	
 }

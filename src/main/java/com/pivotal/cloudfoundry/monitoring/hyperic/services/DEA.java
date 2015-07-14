@@ -5,7 +5,6 @@ public class DEA implements CFService{
 
 	private int index;
 	private String ip;
-	private String partition;
 	
 	public int getIndex() {
 		return index;
@@ -19,14 +18,4 @@ public class DEA implements CFService{
 	public void setIp(String job) {
 		this.ip = job;
 	}
-	
-	public String getPart() {
-		return partition;
-	}
-	
-	public void setPart(String partition) {
-		this.partition = partition;
-	}
-	
-	
 }

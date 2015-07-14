@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
@@ -23,7 +22,7 @@ import javax.management.remote.JMXServiceURL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
+import com.pivotal.cloudfoundry.monitoring.hyperic.services.CF1Service;
 
 /**
  * This class represents a JMXClient connection to the Pivotal Ops Metric
@@ -110,6 +109,26 @@ public class JMXClient {
 	}
 	
 	/**
+	 * 
+	 * @param query
+	 * @return
+	 */
+	MBeanTuple decomposeQueryString(String query)
+	{
+		MBeanTuple tuple = null;
+		log.debug("Received Query String: " + query);
+		
+		String name = query.substring(0, query.lastIndexOf(":"));
+		String property = query.substring(query.lastIndexOf(":")+1);
+		
+		log.debug("Name: " + name);
+		log.debug("Property: " + property);
+		
+		tuple = new MBeanTuple(name, property);
+		return tuple;
+	}
+	
+	/**
 	 * This method decomposes the template string defined in hq-plugin.xml for each
 	 * service defined and creates a query string.
 	 * 
@@ -124,17 +143,49 @@ public class JMXClient {
 	 * @throws IOException
 	 */
 	public Double getPropertyValue(String queryString) throws AttributeNotFoundException, InstanceNotFoundException, MalformedObjectNameException, MBeanException, ReflectionException, IOException{
-		
-		log.debug("Received Query String: " + queryString);
-		
-		String name = queryString.substring(0, queryString.lastIndexOf(":"));
-		String property = queryString.substring(queryString.lastIndexOf(":")+1);
-		
-		log.debug("Name: " + name);
-		log.debug("Property: " + property);
-		
-		Double value = (Double)conn.getAttribute(new ObjectName(name), property);
+		MBeanTuple tuple = decomposeQueryString(queryString);
+		Double value = (Double)conn.getAttribute(new ObjectName(tuple.getName()), tuple.getProperty());
 		return value;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Set<ObjectName> getMBeans()
+	{
+		log.info("Querying CF available services query: " + PCF_Query);
+		Set<ObjectName> mBeans = null;
+		try {
+			mBeans = (conn.queryNames(new ObjectName(PCF_Query), null));
+		} catch (MalformedObjectNameException | IOException e) {
+			// TODO Validate result
+			e.printStackTrace();
+		}
+		
+		return mBeans;
+	}
+	
+	/**
+	 * 
+	 * @param mBeans
+	 * @return
+	 */
+	List<CF1Service> createCFServiceList(Set<ObjectName> mBeans)
+	{
+		List<CF1Service> services = new ArrayList<CF1Service>();
+		Iterator<ObjectName> it = mBeans.iterator();
+		while(it.hasNext())
+		{
+			ObjectName obj = it.next();
+			CF1Service cfService = new CF1Service();
+			cfService.setJob(obj.getKeyProperty("job"));
+			cfService.setIndex(Integer.parseInt(obj.getKeyProperty("index")));
+			cfService.setIp(obj.getKeyProperty("ip"));
+			services.add(cfService);
+			log.info("Adding Cloud Foundry Service: " + obj.getCanonicalName());
+		}
+		return services;
 	}
 	
 	/**
@@ -144,41 +195,10 @@ public class JMXClient {
 	 * 
 	 * @return - List of Cloud Foundry Services
 	 */
-	public List<CFService> getServices(){
+	public List<CF1Service> getServices(){
 		
-		List<CFService> cfServices = new ArrayList<CFService>();
-		
-    	try{
-	    	log.info("Querying CF available services... using query: org.cloudfoundry:deployment=untitled_dev,job=*,index=*,*");
-
-    		Iterator<ObjectName> names = new TreeSet<ObjectName> (conn.queryNames(new ObjectName(PCF_Query), null)).iterator();
-    		while (names.hasNext()){
-    			ObjectName obj = names.next();
-    			
-    			String serviceKind = obj.getKeyProperty("job");
-    			
-    			String serviceKindClassname = Character.toUpperCase(serviceKind.charAt(0)) + serviceKind.substring(1).replaceAll("-", "_");
-    			
-    			try{
-	    			CFService cfService = (CFService) Class.forName(CFService.class.getPackage().getName()+"."+serviceKindClassname).newInstance();    			
-	    			cfService.setIndex(Integer.parseInt(obj.getKeyProperty("index")));
-	    			cfService.setIp(obj.getKeyProperty("ip"));
-	    			//String[] partid = obj.getKeyProperty("job").split("-");
-	    			//cfService.setPart(partid[2]);
-	    			log.info("Found CloudFoundry service: "+serviceKind+" id: "+cfService.getIndex());    			
-	    			cfServices.add(cfService);
-    			}
-    			catch(ClassNotFoundException e){
-    				log.warn("Found CloudFoundry service: "+serviceKind+" but there's no class declared on the plugin for handling it called "+serviceKindClassname);
-    				System.out.println("Found CloudFoundry service: "+serviceKind+" but there's no class declared on the plugin for handling it called "+serviceKindClassname);
-    			}
-    		}
-    		return cfServices;
-    	}
-		catch(Exception e){
-			log.error("ERROR while getting CF Services using JMX: "+e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
+		List<CF1Service> cfServices = new ArrayList<CF1Service>();
+		cfServices = createCFServiceList(getMBeans());
+   		return cfServices;
 	}
 }

@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <plugin name="PCF">
+    <property name="PLUGIN_VERSION" value="1.4.5"/>
 
     <server name="Pivotal CloudFoundry 1.4.x">   		
         <plugin type="autoinventory" class="com.pivotal.cloudfoundry.monitoring.hyperic.Discovery"/>
         <plugin type="measurement" class="com.pivotal.cloudfoundry.monitoring.hyperic.Measurement"/>
 
         <config>
-           <option name="JMX_URL" description="JMX URL of Ops Metrics " default="service:jmx:rmi:///jndi/rmi://192.168.8.19:44444/jmxrmi" optional="false" />
+           <option name="JMX_URL" description="JMX URL of Ops Metrics " default="service:jmx:rmi:///jndi/rmi://10.65.248.42:44444/jmxrmi" optional="false" />
             <option name="Username" description="JMX Username " default="jmxadmin" optional="false"/>
 			<option name="Password" description="JMX Password " default="enter-password" optional="false"/>     
 		</config>
