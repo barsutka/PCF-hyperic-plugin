@@ -20,7 +20,7 @@ import javax.management.ReflectionException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.pivotal.cloudfoundry.monitoring.hyperic.services.CF1Service;
+import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
 
 public class JMXClientTest {
 	
@@ -105,7 +105,7 @@ public class JMXClientTest {
 		try
 		{
 			client.connect(this.jmxURL, this.user, this.password);
-			List<CF1Service> services = client.createCFServiceList(client.getMBeans());
+			List<CFService> services = client.createCFServiceList(client.getMBeans());
 			
 		}
 		catch (Exception ex)

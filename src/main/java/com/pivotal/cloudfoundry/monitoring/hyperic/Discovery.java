@@ -13,7 +13,7 @@ import org.hyperic.hq.product.ServerResource;
 import org.hyperic.hq.product.ServiceResource;
 import org.hyperic.util.config.ConfigResponse;
 
-import com.pivotal.cloudfoundry.monitoring.hyperic.services.CF1Service;
+import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
 
 /**
  * This class is called during auto-discovery in Hyperic and is an extension
@@ -90,9 +90,9 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
     	List<ServiceResource> services = new ArrayList<ServiceResource>();
   
     	// Convert the MBeans list to Hyperic Service Resources.
-    	Iterator<CF1Service> cfServices = client.getServices().iterator();
+    	Iterator<CFService> cfServices = client.getServices().iterator();
     	while (cfServices.hasNext()){    		
-    		CF1Service cfService = cfServices.next();
+    		CFService cfService = cfServices.next();
           
     		ServiceResource service = createServiceResource(cfService.getJob());
             service.setName(cfService.getJob() + " index:" +  cfService.getIndex() + " ip:" + cfService.getIp());

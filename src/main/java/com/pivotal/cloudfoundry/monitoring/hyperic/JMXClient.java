@@ -22,7 +22,7 @@ import javax.management.remote.JMXServiceURL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.pivotal.cloudfoundry.monitoring.hyperic.services.CF1Service;
+import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
 
 /**
  * This class represents a JMXClient connection to the Pivotal Ops Metric
@@ -171,14 +171,14 @@ public class JMXClient {
 	 * @param mBeans
 	 * @return
 	 */
-	List<CF1Service> createCFServiceList(Set<ObjectName> mBeans)
+	List<CFService> createCFServiceList(Set<ObjectName> mBeans)
 	{
-		List<CF1Service> services = new ArrayList<CF1Service>();
+		List<CFService> services = new ArrayList<CFService>();
 		Iterator<ObjectName> it = mBeans.iterator();
 		while(it.hasNext())
 		{
 			ObjectName obj = it.next();
-			CF1Service cfService = new CF1Service();
+			CFService cfService = new CFService();
 			cfService.setJob(obj.getKeyProperty("job"));
 			cfService.setIndex(Integer.parseInt(obj.getKeyProperty("index")));
 			cfService.setIp(obj.getKeyProperty("ip"));
@@ -195,9 +195,9 @@ public class JMXClient {
 	 * 
 	 * @return - List of Cloud Foundry Services
 	 */
-	public List<CF1Service> getServices(){
+	public List<CFService> getServices(){
 		
-		List<CF1Service> cfServices = new ArrayList<CF1Service>();
+		List<CFService> cfServices = new ArrayList<CFService>();
 		cfServices = createCFServiceList(getMBeans());
    		return cfServices;
 	}

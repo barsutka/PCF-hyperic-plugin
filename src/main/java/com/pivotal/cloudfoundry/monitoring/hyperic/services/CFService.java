@@ -1,11 +1,31 @@
 package com.pivotal.cloudfoundry.monitoring.hyperic.services;
 
-public interface CFService {
+public class CFService {
+	
+	private String Job;
+	private int index;
+	private String ip;
+	
+	public void setJob(String job) {
+		Job = job;
+	}
 
-	public int getIndex();
-	public void setIndex(int index);
-	
-	public String getIp();
-	public void setIp(String ip);
-	
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getJob() {
+		return Job;
+	}
+	public int getIndex() {
+		return index;
+	}
+	public String getIp() {
+		return ip;
+	}
+
 }
