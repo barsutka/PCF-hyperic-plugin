@@ -95,14 +95,14 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
     		CF1Service cfService = cfServices.next();
           
     		ServiceResource service = createServiceResource(cfService.getJob());
-            service.setName(cfService.getJob() + " ip=" + cfService.getIp());
+            service.setName(cfService.getJob() + " index:" +  cfService.getIndex() + " ip:" + cfService.getIp());
             ConfigResponse productConfig = new ConfigResponse();
             productConfig.setValue("service.ID", cfService.getIndex());
             productConfig.setValue("service.IP", cfService.getIp());
             setProductConfig(service, productConfig);
             setMeasurementConfig(service, new ConfigResponse());
             services.add(service);    		
-            log.info("Added service: "+service.getType()+" service.ID "+cfService.getIndex());
+            log.info("Added service: "+service.getType()+" service.ID "+cfService.getIndex() + " name= " + service.getName());
     	}
     	
     	log.info("Returning services #: "+services.size());
