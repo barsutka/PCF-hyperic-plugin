@@ -62,14 +62,14 @@
 
             <metric name="Availability" indicator="true" />
             
-			<metric name="Avaliable Disk Ratio" indicator="true" category="THROUGHPUT" alias="available_disk_ratio[stack=lucid64]" />
+			<metric name="Available Disk Ratio" indicator="true" category="THROUGHPUT" alias="available_disk_ratio[stack=lucid64]" />
 
 			<metric name="Can Stage" indicator="true" category="THROUGHPUT" alias="can_stage[stack=lucid64]" />
 			<metric name="Reservable Stagers" indicator="true" category="THROUGHPUT" alias="reservable_stagers[stack=lucid64]" />
 			
 			<metric name="CPU Load Avg" indicator="true" category="THROUGHPUT" alias="cpu_load_avg[stack=lucid64]"/>
 
-			<metric name="Avaliable Memory Ratio" indicator="true" category="THROUGHPUT" alias="available_memory_ratio[stack=lucid64]" />
+			<metric name="Available Memory Ratio" indicator="true" category="THROUGHPUT" alias="available_memory_ratio[stack=lucid64]" />
 			<metric name="Memory Free Bytes" indicator="true" category="THROUGHPUT" alias="mem_free_bytes[stack=lucid64]"/>
 			<metric name="Memory Used Bytes" indicator="true" category="THROUGHPUT" alias="mem_used_bytes[stack=lucid64]"/>
 
@@ -183,11 +183,14 @@
 
             <metric name="Availability" indicator="true" />
             
+			<metric name="Log Count Warning" indicator="true" category="THROUGHPUT" alias="log_count[level=warn]" />
 			<metric name="Routing: Bad Gateways" indicator="true" category="THROUGHPUT" alias="router.bad_gateways" />
-			<metric name="Routing: Bad Requests" indicator="true" category="THROUGHPUT" alias="router.bad_requests" />
+			<metric name="Routing: MilliSeconds Since Last Registry Update" indicator="true" category="THROUGHPUT" alias="router.ms_since_last_registry_update" />
+			<metric name="Routing: Rejected Request" indicator="true" category="THROUGHPUT" alias="router.rejected_requests" />
+			<metric name="Routing: Routed Application Requests" indicator="true" category="THROUGHPUT" alias="router.routed_app_requests" />
 			<metric name="Routing: Total Requests" indicator="true" category="THROUGHPUT" alias="router.total_requests" />
 			<metric name="Routing: Total Routes" indicator="true" category="THROUGHPUT" alias="router.total_routes" />
-			<metric name="Routing: Requests per Second" indicator="true" category="THROUGHPUT" alias="router.requests_per_sec" />
+			<metric name="Routing: Uptime in Seconds" indicator="true" category="THROUGHPUT" alias="uptime_in_seconds" />
 			            
         </service>
                 
