@@ -22,7 +22,7 @@ Simplified Setup Instructions:
 
     server:[hyperic root]/hq-engine/hq-server/webapps/ROOT/WEB-INF/hq-plugins
 
-    client:[hyperic agent root]/pdk/plugins
+    client:[hyperic agent root]/agent-#.#.#-EE/bundles/agent-x86-64-linux-#.#.#/pdk/plugins
 
 
 4   Restart the Hyperic Agent
