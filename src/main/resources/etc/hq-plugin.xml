@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <plugin name="PCF">
-    <property name="PLUGIN_VERSION" value="1.4.5"/>
+    <property name="PLUGIN_VERSION" value="1.5.3-20150829MG"/>
 
-    <server name="Pivotal CloudFoundry 1.4.x">   		
+    <server name="Pivotal CloudFoundry 1.5.x">   		
         <plugin type="autoinventory" class="com.pivotal.cloudfoundry.monitoring.hyperic.Discovery"/>
         <plugin type="measurement" class="com.pivotal.cloudfoundry.monitoring.hyperic.Measurement"/>
 
@@ -41,7 +41,7 @@
 						
 			<metric name="CPU Load Avg" indicator="true" category="THROUGHPUT" alias="cpu_load_avg"/>
 
-			<metric name="Memory" indicator="true" category="THROUGHPUT" alias="mem" />
+			<metric name="Memory" indicator="true" category="THROUGHPUT" alias="mem_bytes" />
 			<metric name="Memory Free Bytes" indicator="true" category="THROUGHPUT" alias="mem_free_bytes"/>
 			<metric name="Memory Used Bytes" indicator="true" category="THROUGHPUT" alias="mem_used_bytes"/>
 
@@ -96,9 +96,9 @@
 
             <metric name="Availability" indicator="true" />
             
-			<metric name="Message Aggregator Counter Recvd" indicator="true" category="THROUGHPUT" alias="MetronAgent.MessageAggregator.counterEventReceived" />  
+			<metric name="Message Aggregator Counter Recvd" indicator="true" category="THROUGHPUT" alias="MetronAgent.MessageAggregator.counterEventReceived" />
 			<metric name="Recieved Byte Count" indicator="true" category="THROUGHPUT" alias="MetronAgent.legacyAgentListener.receivedByteCount" /> 
-			<metric name="Current Buffer Count" indicator="true" category="THROUGHPUT" alias="MetronAgent.legacyAgentListener.currentBufferCoun" />
+			<metric name="Current Buffer Count" indicator="true" category="THROUGHPUT" alias="MetronAgent.legacyAgentListener.currentBufferCount" />
 			          
         </service>
 
@@ -114,7 +114,9 @@
 			<metric name="Message Counter Recvd" indicator="true" category="THROUGHPUT" alias="DopplerServer.dropsondeListener.receivedMessageCount" />  
 			<metric name="Recieved Byte Count" indicator="true" category="THROUGHPUT" alias="DopplerServer.dropsondeListener.receivedByteCount" /> 
 			<metric name="Current Buffer Count" indicator="true" category="THROUGHPUT" alias="DopplerServer.dropsondeListener.currentBufferCount" />
-			          
+			<metric name="Parsed Messages Dropped" indicator="true" category="THROUGHPUT" alias="DopplerServer.httpServer.numberOfMessagesDroppedInParseEnvelopes" />
+			<metric name="Total Messages Dropped" indicator="true" category="THROUGHPUT" alias="DopplerServer.messageRouter.totalDroppedMessages" />
+			<metric name="Errors Marshalling Parsed Messages" indicator="true" category="THROUGHPUT" alias="DopplerServer.httpServer.numberOfMessagesUnmarshalErrorsInParseEnvelopes" />
         </service>
         
         <service name="Login">

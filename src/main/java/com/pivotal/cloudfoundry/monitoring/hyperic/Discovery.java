@@ -20,7 +20,7 @@ import com.pivotal.cloudfoundry.monitoring.hyperic.services.CFService;
  * of the Hyperic framework. The PCF plugin is responsible for creating its 
  * own server and service resources to be displayed in the Hyperic UI.
  * 
- * @version 1.4.x
+ * @version 1.5.x
  */
 
 public class Discovery extends ServerDetector implements AutoServerDetector {
@@ -38,7 +38,7 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
     public List getServerResources(ConfigResponse platformConfig) throws PluginException {
         
        	
-    	log.info("[getServerResources] platfromConfig=" + platformConfig);
+    	log.info("[getServerResources] PCF:PLUGIN platfromConfig=" + platformConfig);
     	    	
         
         List servers = new ArrayList();
@@ -68,20 +68,20 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
     	String username = serverConfig.getValue("Username");
     	String password = serverConfig.getValue("Password");
     	
-    	log.debug("JMX URL=" + jmxURL);
-    	log.debug("username=" + username);
-    	log.debug("password=" + password);
+    	log.debug("PCF:PLUGIN JMX URL=" + jmxURL);
+    	log.debug("PCF:PLUGIN username=" + username);
+    	log.debug("PCF:PLUGIN password=" + password);
 
     	JMXClient client = JMXClient.getInstance();
     	try {
 			client.connect(jmxURL, username, password);
 			serverConfig.setValue("Availability", true);
-	    	log.info("[discoverServices] Connected to JMX");
+	    	log.info("[discoverServices] PCF:PLUGIN Connected to JMX");
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.info("[discoverServices] "+e.getMessage());
-			log.info("[discoverServices] EXCEPTION CONNECTING TO JMX. WILL SET AVAILABILITY TO FALSE");
+			log.info("[discoverServices] PCF:PLUGIN "+e.getMessage());
+			log.info("[discoverServices] PCF:PLUGIN ERROR CONNECTING TO JMX. WILL SET AVAILABILITY TO FALSE");
 
 			serverConfig.setValue("Availability", false);
 			return new ArrayList();
@@ -102,10 +102,10 @@ public class Discovery extends ServerDetector implements AutoServerDetector {
             setProductConfig(service, productConfig);
             setMeasurementConfig(service, new ConfigResponse());
             services.add(service);    		
-            log.info("Added service: "+service.getType()+" service.ID "+cfService.getIndex() + " name= " + service.getName());
+            log.info("PCF:PLUGIN Added service: "+service.getType()+" service.ID "+cfService.getIndex() + " name= " + service.getName());
     	}
     	
-    	log.info("Returning services #: "+services.size());
+    	log.info("PCF:PLUGIN Returning services #: "+services.size());
 
     	return services;
     	

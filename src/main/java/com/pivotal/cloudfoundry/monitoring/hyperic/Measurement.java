@@ -34,24 +34,29 @@ public class Measurement extends MeasurementPlugin {
         MetricValue metricValue = null;
         
         if (metric.isAvail()){
-        	if (metric.toString().equals("CF:Availability")){
+        	if (metric.toString().matches("CF:Availability")){
         		if (JMXClient.getInstance().isConnected())
         			return new MetricValue(Metric.AVAIL_UP);
         		else return new MetricValue(Metric.AVAIL_DOWN);
         	}
-        	String property = metric.toString().replaceAll("Availability", "healthy");
-        	try {
-				double up = JMXClient.getInstance().getPropertyValue(property);
-				if (up>0) return new MetricValue(Metric.AVAIL_UP);
-				return new MetricValue(Metric.AVAIL_DOWN);
-				
-			} catch (AttributeNotFoundException e) {
-				log.warn("Attribute HEALTHY not found for " + property+". Assuming its available");
-				return new MetricValue(Metric.AVAIL_UP);
-				//e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+        		String property = metric.toString().replaceAll("Availability", "healthy");
+        		log.info("[getMetrics] PCF:PLUGIN Attempting to get health VALUE from:::" + property.toString());
+        		try {
+        			log.info("[getMetrics] PCF:PLUGIN Trying Now.....");
+        			double up = JMXClient.getInstance().getPropertyValue(property);
+        			log.info("[getMetrics] PCF:PLUGIN Found Availability Metric for " + property + "!  Returning VALUE=" + up);
+        			if (up>0) return new MetricValue(Metric.AVAIL_UP);
+        			return new MetricValue(Metric.AVAIL_DOWN);
+        		
+        			} catch (AttributeNotFoundException e) {
+        				log.warn("[getMetrics] PCF:PLUGIN ERROR Attribute HEALTHY not found for " + property + ". Assuming its available...");
+        				e.printStackTrace();
+        				return new MetricValue(Metric.AVAIL_UP);
+        			} catch (Exception e) {
+        				log.warn("[getMetrics] PCF:PLUGIN ERROR Collecting Availability Metric " + property + " from PCF Ops Metrics.");
+        				e.printStackTrace();
+        	}
+        	
         	
         	
         	return new MetricValue(Metric.AVAIL_UP); 
@@ -60,14 +65,14 @@ public class Measurement extends MeasurementPlugin {
         if (!metric.toString().startsWith("org.cloudfoundry")) return new MetricValue(1d);
         else{
 	        try{
-	        	log.info(">>>>WILL GET VALUE VALUE OF METRIC: " + metric);
 	        	double value = JMXClient.getInstance().getPropertyValue(metric.toString());
-	        	log.info(">>>>VALUE IS: " + value);
+	        	log.info("[getMetrics] PCF:PLUGIN INFO Collected Value of " + metric + " IS " + value);
 	        	
 	        	metricValue = new MetricValue(value); 
 	        }
 	        catch(Exception e){
 	        	e.printStackTrace();
+	        	log.warn("[getMetrics] PCF:PLUGIN ERROR Collecting Ops Metric" + metric + " from PCF Ops Metrics.");
 	        	metricValue=new MetricValue(0);
 	        }
         }

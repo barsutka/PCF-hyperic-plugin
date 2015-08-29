@@ -1,0 +1,3 @@
+mvn package -DskipTests
+scp ./target/PCF-plugin.jar root@10.65.248.60:/opt/hyperic/agent-5.8.4-EE/bundles/agent-x86-64-linux-5.8.4/pdk/plugins/ 
+scp ./target/PCF-plugin.jar root@10.65.248.60:/opt/hyperic/server-current/hq-engine/hq-server/webapps/ROOT/WEB-INF/hq-plugins/ 
