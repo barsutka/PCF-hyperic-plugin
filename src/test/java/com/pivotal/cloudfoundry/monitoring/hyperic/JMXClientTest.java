@@ -89,7 +89,6 @@ public class JMXClientTest {
 			assertTrue(mBeans.containsKey("Router"));
 			assertTrue(mBeans.containsKey("collector"));
 			assertTrue(mBeans.containsKey("etcd"));
-			assertTrue(mBeans.containsKey("login"));
 			assertTrue(mBeans.containsKey("uaa"));
 		}
 		catch(Exception ex)
