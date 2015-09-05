@@ -5,6 +5,7 @@
   mvn package
 ```
   The jar will build in target [local git repo]/target/PCF-plugin.jar
+  
   Specific tests in this build connect to the Ops Metric server, VPN is required.
 
 # PCF Hyperic plugin Install
