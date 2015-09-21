@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <plugin name="PCF">
-    <property name="PLUGIN_VERSION" value="1.5.3-20150829MG"/>
+    <property name="PLUGIN_VERSION" value="1.5.3-20150918-MG"/>
 
     <server name="Pivotal CloudFoundry 1.5.x">   		
         <plugin type="autoinventory" class="com.pivotal.cloudfoundry.monitoring.hyperic.Discovery"/>
@@ -193,6 +193,17 @@
 			<metric name="Routing: Total Requests" indicator="true" category="THROUGHPUT" alias="router.total_requests" />
 			<metric name="Routing: Total Routes" indicator="true" category="THROUGHPUT" alias="router.total_routes" />
 			<metric name="Routing: Uptime in Seconds" indicator="true" category="THROUGHPUT" alias="uptime_in_seconds" />
+			<metric name="Routing: Requests per Second" indicator="true" category="THROUGHPUT" alias="router.requests_per_sec" />
+			<metric name="Routing: CC Responses 2xx" indicator="true" category="THROUGHPUT" alias="router.responses[component=CloudController,status=2xx]" />
+			<metric name="Routing: CC Responses 3xx" indicator="true" category="THROUGHPUT" alias="router.responses[component=CloudController,status=3xx]" />
+			<metric name="Routing: CC Responses 4xx" indicator="true" category="THROUGHPUT" alias="router.responses[component=CloudController,status=4xx]" />
+			<metric name="Routing: CC Responses 5xx" indicator="true" category="THROUGHPUT" alias="router.responses[component=CloudController,status=5xx]" />
+			<metric name="Routing: CC Responses xxx" indicator="true" category="THROUGHPUT" alias="router.responses[component=CloudController,status=xxx]" />
+			<metric name="Routing: Latency in Seconds 50 Percentile" indicator="true" category="THROUGHPUT" alias="router.latency.1m.50" />
+			<metric name="Routing: Latency in Seconds 75 Percentile" indicator="true" category="THROUGHPUT" alias="router.latency.1m.75" />
+			<metric name="Routing: Latency in Seconds 90 Percentile" indicator="true" category="THROUGHPUT" alias="router.latency.1m.90" />
+			<metric name="Routing: Latency in Seconds 95 Percentile" indicator="true" category="THROUGHPUT" alias="router.latency.1m.95" />
+			<metric name="Routing: Latency in Seconds 99 Percentile" indicator="true" category="THROUGHPUT" alias="router.latency.1m.99" />
 			            
         </service>
                 
