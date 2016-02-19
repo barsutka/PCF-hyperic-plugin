@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="hq-common-4.6.6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/hyperic-local-repo/org/hyperic/hq/hq-common/4.6.6/hq-common-4.6.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

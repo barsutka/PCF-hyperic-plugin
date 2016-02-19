@@ -13,7 +13,9 @@ import javax.management.InstanceNotFoundException;
 import javax.management.MBeanException;
 import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
+import javax.management.ObjectInstance;
 import javax.management.ObjectName;
+import javax.management.QueryExp;
 import javax.management.ReflectionException;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
@@ -49,9 +51,34 @@ public class JMXClient {
 	private static JMXClient instance = null;
 	
 	/**
-	 * Query String defined by Pivotal Ops Metrics 
+	 * Query String defined by Pivotal Ops Metrics 1.4 and earlier
 	 */
-	private static String PCF_Query = "org.cloudfoundry:deployment=untitled_dev,job=*,index=*,*";
+	private static String PCF_Query_DEA = "org.cloudfoundry:deployment=untitled_dev,job=DEA,index=*,*";
+	
+	/**
+	 * Query String defined by Pivotal Ops Metrics 1.4 and earlier
+	 */
+	private static String PCF_Query_HM9000 = "org.cloudfoundry:deployment=untitled_dev,job=HM9000,index=*,*";
+	
+	/**
+	 * Query String defined by Pivotal Ops Metrics 1.4 and earlier
+	 */
+	private static String PCF_Query_Router = "org.cloudfoundry:deployment=untitled_dev,job=Router,index=*,*";
+	
+	/**
+	 * Query String defined by Pivotal Ops Metrics 1.4 and earlier
+	 */
+	private static String PCF_Query_CloudController = "org.cloudfoundry:deployment=untitled_dev,job=CloudController,index=*,*";
+	
+	/**
+	 * Query String defined by Pivotal Ops Metrics 1.4 and earlier
+	 */
+	private static String PCF_Query_etcd = "org.cloudfoundry:deployment=untitled_dev,job=etcd,index=*,*";
+	
+	/**
+	 * Query String defined by Pivotal Ops Metrics 1.6 and later
+	 */
+	private static String PCF_QUERY_16 = "org.cloudfoundry:deployment=cf,job=*,index=*,*";
 	
 	/**
 	 * Constructor for JMXClient
@@ -149,15 +176,19 @@ public class JMXClient {
 	}
 	
 	/**
-	 * 
+	 * Get all mBeans for PCF Ops Metrics all versions
 	 * @return
 	 */
 	Set<ObjectName> getMBeans()
 	{
-		log.info("Querying CF available services query: " + PCF_Query);
+		log.info("Querying CF available services query: " + PCF_QUERY_16);
 		Set<ObjectName> mBeans = null;
 		try {
-			mBeans = (conn.queryNames(new ObjectName(PCF_Query), null));
+			mBeans = (conn.queryNames(new ObjectName(PCF_QUERY_16), null));
+			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_DEA), null));
+			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_CloudController), null));
+			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_HM9000), null));
+			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_etcd), null));
 		} catch (MalformedObjectNameException | IOException e) {
 			// TODO Validate result
 			e.printStackTrace();
@@ -182,10 +213,54 @@ public class JMXClient {
 			cfService.setJob(obj.getKeyProperty("job"));
 			cfService.setIndex(Integer.parseInt(obj.getKeyProperty("index")));
 			cfService.setIp(obj.getKeyProperty("ip"));
-			services.add(cfService);
-			log.info("Adding Cloud Foundry Service: " + obj.getCanonicalName());
+			cfService.setType(createType(obj.getKeyProperty("job")));
+			if(cfService.getType() != null)
+			{
+				services.add(cfService);
+				log.info("Adding Cloud Foundry Service: " + obj.getCanonicalName());
+			}
+			else
+				log.error("Service Type is not defined: Skipping " + obj.getCanonicalName());
 		}
 		return services;
+	}
+	
+	/**
+	 * Dtermien type of Hyperic Service based on Job type. Hyperic server does not allow for services to have the same name regardless of case.
+	 * As a result we have to convert previous services to match existing constraints.
+	 * @param job
+	 * @return
+	 */
+	String createType (String job)
+	{
+		StringBuilder key = new StringBuilder();
+		
+		if (job.equals("DEA"))
+		{
+			key.append("DEA15");
+		 	return key.toString();
+		}
+		
+		if( job.equals("Router"))
+		{
+			key.append("Router15");
+			return key.toString();
+		}
+		
+		if(job.equals ("CloudController"))
+		{
+			key.append("CloudController15");
+			return key.toString();
+		}
+		
+		String[] subs = job.split("-");
+		if(subs[0].isEmpty())
+		{
+			log.error("Cloud Foundry Service type parsing error");
+			return null;
+		}
+		key.append(subs[0]);
+		return key.toString();
 	}
 	
 	/**

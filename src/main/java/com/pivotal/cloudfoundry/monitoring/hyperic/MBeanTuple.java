@@ -4,6 +4,7 @@ public class MBeanTuple {
 	
 	private String Name;
 	private String Property;
+	private String Job;
 	
 	public MBeanTuple(String name, String property)
 	{
@@ -18,6 +19,5 @@ public class MBeanTuple {
 	public String getProperty() {
 		return Property;
 	}
-	
 
 }
