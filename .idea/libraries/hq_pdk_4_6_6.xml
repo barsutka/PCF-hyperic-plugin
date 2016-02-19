@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="hq-pdk-4.6.6">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/hyperic-local-repo/org/hyperic/hq/hq-pdk/4.6.6/hq-pdk-4.6.6.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
