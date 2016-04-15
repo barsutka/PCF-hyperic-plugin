@@ -189,6 +189,7 @@ public class JMXClient {
 			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_CloudController), null));
 			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_HM9000), null));
 			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_etcd), null));
+			mBeans.addAll(conn.queryNames(new ObjectName(PCF_Query_Router), null));
 		} catch (MalformedObjectNameException | IOException e) {
 			// TODO Validate result
 			e.printStackTrace();
