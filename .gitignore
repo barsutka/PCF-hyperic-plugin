@@ -4,3 +4,6 @@
 .classpath
 .project
 .DS_Store
+.idea
+PCF-hyperic-plugin.iml
+

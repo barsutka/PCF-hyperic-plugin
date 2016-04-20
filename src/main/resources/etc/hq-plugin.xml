@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <plugin name="PCF">
-    <property name="PLUGIN_VERSION" value="1.6.0-20160201-JFO14"/>
+    <property name="PLUGIN_VERSION" value="1.6.2-20160420"/>
 
     <server name="Pivotal CloudFoundry 1.6.x">   		
         <plugin type="autoinventory" class="com.pivotal.cloudfoundry.monitoring.hyperic.Discovery"/>
